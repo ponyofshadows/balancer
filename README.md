@@ -54,6 +54,6 @@ balancer
 If `input.md` is missing, the program automatically creates a template in your working directory.
 
 You may also specify an explicit filepath:
-```bash```
+```bash
 balancer <filepath>
 ```
