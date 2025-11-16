@@ -1,4 +1,5 @@
-[🇨🇳 zh-CN](README.zh-CN.md)
+English | [中文文档](https://github.com/ponyofshadows/balancer/blob/master/README.zh-CN.md)
+
 # reaction-balancer
 A precise chemical-equation balancer that uses exact rational arithmetic and CIAAW atomic weights to generate printable reaction preparation sheets (Excel format) from Markdown input.
 ---
@@ -49,7 +50,9 @@ uv tool install balancer
 ## Usage
 Run this command in a directory:
 ```bash
-balancer
+python -m balancer
+# or use uv:
+# uv run balancer
 ```
 If `input.md` is missing, the program automatically creates a template in your working directory.
 
