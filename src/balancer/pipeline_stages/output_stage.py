@@ -8,7 +8,6 @@ from typing import Iterator
 from pathlib import Path
 from datetime import datetime
 import errno
-import os
 
 from ..pipeline_contracts import Context, Bundle, Style, Cell, Block
 from ..errors import InputError, OutputError, InitHint

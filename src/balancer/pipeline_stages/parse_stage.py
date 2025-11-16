@@ -150,7 +150,8 @@ def parse_reaction(raw_reaction:str)-> Optional[Reaction]:
                             explanation=f"A lowercase letter '{last_c}' appears right after right parenthesis '{c}' in the formula.",
                             hint="In a chemical formula, lowercase letters must follow an uppercase letter as part of an element symbol, "
                                 "not a right parenthesis. Please check your capitalization.")
-                       
+                    else:
+                        multipliers_history.append(Rational(1))
                     c_next()
                 elif c_type is C.L_PAREN:
                     reversed_formula_cache.append(c)

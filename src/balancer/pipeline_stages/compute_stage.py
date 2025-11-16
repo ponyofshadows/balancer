@@ -56,7 +56,7 @@ def solve_reaction(reactant_matrix:Matrix, product_vector:Matrix, reaction:React
                                 candidates.append(iv.sup)
                         else:
                             candidates.append(iv.inf)
-                    infimum = min(infs)
+                    infimum = min(candidates)
                 # Defensive programming * 2
                 else:
                     #fallback to zero
@@ -151,6 +151,20 @@ def mole_mass(elements_stoich:dict[str,Rational])->Rational:
 def mass(stoichs:list, mole_masses:list, input_masses:iterator[Optional[Rational]])->list[Rational]:
     for i,input_mass in enumerate(input_masses):
         if input_mass is not None:
+            if stoichs[i]==0:
+                match i:
+                    case 0:
+                        num = f"{i+1}-st"
+                    case 1:
+                        num = f"{i+1}-nd"
+                    case 2:
+                        num = f"{i+1}-rd"
+                    case _:
+                        num = f"{i+1}-th"
+
+                raise ComputeError(
+                        hint=f"You provided an input mass for the {num} reactant, but its stoichiometric coefficient in the balanced equation is zero."
+                        )
             eq_mole = input_mass / mole_masses[i] / stoichs[i]
             break
     else:
