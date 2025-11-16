@@ -1,5 +1,5 @@
 [🇺🇸 en_US](README.md)
-# balancer
+# reaction-balancer
 balancer 是一款用于材料科学与凝聚态物理实验的**精确化学方程式配平工具**。  
 它从 Markdown 输入文件中解析反应式，使用精确有理数运算和 CIAAW 2024 原子质量表进行计算，并自动生成可直接打印的 Excel 配料表。
 
