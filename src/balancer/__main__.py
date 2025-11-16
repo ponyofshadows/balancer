@@ -20,5 +20,15 @@ def main()->None:
         OutputStage(),
     ).run(args.input_file)
 
+
+def wait_for_any_key():
+    try:
+        import msvcrt # for windows
+        print("Press any key to exit...", end="", flush=True)
+        msvcrt.getch()  
+    except ImportError:
+        input("Press Enter to exit...")  # fallback
+
 if __name__ == "__main__":
     main()
+    wait_for_any_key()

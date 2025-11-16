@@ -17,32 +17,46 @@ from ..errors import InputError, OutputError, InitHint
 OUTPUT_DIR = "./outputs/"
 MIN_COL_WIDTH = 4
 
+class _Sentinel:
+    pass
+
+STOP = _Sentinel()
+ERROR = _Sentinel()
+
 def block_producer(q:Queue, blocks: Iterator[Block]):
     try:
         for block in blocks:
             q.put(block)
     except InputError as e:
         print(e)
-        os._exit(1)
+        q.put(ERROR)
     except InitHint as e:
         print(e)
-        os._exit(0)
-    q.put(None)
+        q.put(ERROR)
+    q.put(STOP)
 
 
 
-def block_consumer(q:Queue, ws:Worksheet):
+def block_consumer(q:Queue, context:Context):
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Recipe"
     col_width = {}
     while True:
         block = q.get()
-        if block is None:
+        if block is STOP:
+            q.task_done()
+            set_col_width(ws,col_width)
+            output_basename = context.title
+            save(wb, output_basename)
+            break
+        elif block is ERROR:
             q.task_done()
             break
         
         write(block, ws, col_width)
         q.task_done()
 
-    set_col_width(ws,col_width)
 
 
 def write(block:Block,ws:Worksheet, col_width:dict[int,float]):
@@ -106,20 +120,16 @@ class OutputStage:
 
     def process(self, bundle:Bundle)->Bundle:
         blocks = bundle.stream
-        wb = Workbook()
-        ws = wb.active
-        ws.title = "Recipe"
+        context = bundle.context
 
         q = Queue(maxsize=128)
         t1 = Thread(target=block_producer, args=(q,blocks), daemon=True)
-        t2 = Thread(target=block_consumer, args=(q,ws), daemon=True)
+        t2 = Thread(target=block_consumer, args=(q,context), daemon=True)
         t1.start()
         t2.start()
 
         t2.join()
 
-        output_basename = bundle.context.title
-        save(wb, output_basename)
 
         return Bundle(bundle.context, None)
         
