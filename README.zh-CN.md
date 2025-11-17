@@ -53,13 +53,20 @@ uv tool install balancer
 ```
 
 ## 使用方法
-在某个目录中运行：
+在任意目录下运行以下命令：
 ```bash
 python -m balancer
 # 或使用 uv:
 # uv run balancer
 ```
-如果该目录下没有 input.md，程序会自动生成模板文件。
+程序需要一个输入文件（默认是 `./input.md`）。
+
+如果没找到`input.md`，程序会自动在当前目录创建一个模板文件。
+
+输入示例：
+![INPUT_EXAMPLE](https://github.com/ponyofshadows/balancer/blob/master/assets/SCREENSHOT_EXAMPLE_INPUT.png)
+对应输出：
+![OUTPUT_EXAMPLE](https://github.com/ponyofshadows/balancer/blob/master/assets/SCREENSHOT_EXAMPLE_OUTPUT.png)
 
 您也可以指定具体路径：
 ```bash

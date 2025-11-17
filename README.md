@@ -48,13 +48,21 @@ uv tool install balancer
 ```
 
 ## Usage
-Run this command in a directory:
+Run the following command in any directory:
 ```bash
 python -m balancer
 # or use uv:
 # uv run balancer
 ```
-If `input.md` is missing, the program automatically creates a template in your working directory.
+This program needs an input file (default: `./input.md`).
+
+If `input.md` is not found, a template will be automatically created in the current working directory.
+
+Example input:
+![INPUT_EXAMPLE](https://github.com/ponyofshadows/balancer/blob/master/assets/SCREENSHOT_EXAMPLE_INPUT.png)
+
+Corresponding output:
+![OUTPUT_EXAMPLE](https://github.com/ponyofshadows/balancer/blob/master/assets/SCREENSHOT_EXAMPLE_OUTPUT.png)
 
 You may also specify an explicit filepath:
 ```bash

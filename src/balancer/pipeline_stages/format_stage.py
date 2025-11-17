@@ -212,6 +212,11 @@ class FormatStage:
 
 
     def process(self,bundle:Bundle)->Bundle:
+        self.reaction_rows = []
+        self.null_start_cols = []
+        self.product_columns = []
+        self.focus_row = 1
+
         datalines = bundle.stream
 
         def stream():

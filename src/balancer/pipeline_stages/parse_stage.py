@@ -280,7 +280,7 @@ def parse_reaction(raw_reaction:str)-> Optional[Reaction]:
                             state = State.DEFAULT
                         else:
                             raise ParseError(
-                                explanation="You writed more than one reaction arrow(<- or ->).",
+                                explanation="You wrote more than one reaction arrow(<- or ->).",
                                 hint="Each reaction should have exactly one arrow indicating direction. "
                                     "For example: '- A + B -> C' or '- C <- A + B'.",)
                     else:
@@ -298,7 +298,7 @@ def parse_reaction(raw_reaction:str)-> Optional[Reaction]:
                             state = State.DEFAULT
                         else:
                             raise ParseError(
-                                explanation="You writed more than one reaction arrow(<- or ->).",
+                                explanation="You wrote more than one reaction arrow(<- or ->).",
                                 hint="Each reaction should have exactly one arrow indicating direction. "
                                     "For example: '- A + B -> C' or '- C <- A + B'.",)
                     else:
@@ -368,6 +368,10 @@ def parse_reaction(raw_reaction:str)-> Optional[Reaction]:
                 hint=", ".join(product_formulas)
                 )
 
+        if not reversed_reactants:
+            raise ParseError(
+                hint="No reactants were found in this reaction line."
+                    )
 
         if reversed_basis:
             basis = dict.fromkeys(reversed(reversed_basis))

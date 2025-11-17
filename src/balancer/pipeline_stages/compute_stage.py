@@ -69,7 +69,7 @@ def solve_reaction(reactant_matrix:Matrix, product_vector:Matrix, reaction:React
         else:
             reactant_formulas = (reactant.formula for reactant in reaction.reactants)
             raise ComputeError(
-                    explanation="Too many unnessary reactants, which lead to more than 1 free variables in the solution. Please remove some from these:",
+                    explanation="Too many unnecessary reactants, which lead to more than 1 free variables in the solution. Please remove some from these:",
                     hint=", ".join(reactant_formulas)
                     )
 

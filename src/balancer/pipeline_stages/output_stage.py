@@ -80,7 +80,7 @@ def set_col_width(ws:Worksheet, col_width:dict[int,float]):
 
 def save(wb:Workbook, basename: str):
     if basename is None:
-        filename = f"{datetime.now().strftime("%Y-%m-%d")}.xlsx"
+        filename = f"{datetime.now().strftime('%Y-%m-%d')}.xlsx"
     else:
         filename = f"{basename}.xlsx"
     output_path = Path(OUTPUT_DIR) / filename

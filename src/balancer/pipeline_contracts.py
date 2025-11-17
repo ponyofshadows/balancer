@@ -9,7 +9,7 @@ T = TypeVar("T")
 
 @dataclass(slots=True)
 class Context:
-    title: Optional(str)=None
+    title: Optional[str]=None
 
 class Bundle(NamedTuple):
     context: Context
@@ -58,7 +58,7 @@ class SubstanceResult(NamedTuple):
     mass: Rational
 
 class ReactionResult(NamedTuple):
-    product: SubsatanceResult
+    product: SubsantanceResult
     reactants: list[SubstanceResult]
 
 
@@ -71,7 +71,7 @@ class Style(NamedTuple):
 class Cell(NamedTuple):
     value: T
     number_format: str = "@"
-    style: Optional[Sytle] = None
+    style: Optional[Style] = None
 
 class Block(NamedTuple):
     column: Iterable[Cell]
