@@ -1,14 +1,14 @@
 English | [中文文档](https://github.com/ponyofshadows/balancer/blob/master/README.zh-CN.md)
 
 # reaction-balancer
-A precise chemical-equation balancer that uses exact rational arithmetic and CIAAW atomic weights to generate printable reaction preparation sheets (Excel format) from Markdown input.
+A precise chemical-equation balancer that uses exact rational arithmetic and CIAAW atomic weights to generate printable recipe sheets (Excel format) from Markdown input.
 ---
 
 ## Features
 
 ### 1. Exact scientific computation  
 - Uses **CIAAW (2024)** standard atomic weights.  
-- All internal math uses **sympy.Rational** (exact fractions), eliminating floating-point errors.  
+- All internal math uses **sympy.Rational** (exact fractions), eliminating round-off errors.  
 - Linear algebra–based solver ensures **correct balancing** or gives an informative error if impossible.
 
 ### 2. Flexible input syntax  
