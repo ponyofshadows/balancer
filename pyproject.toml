@@ -1,6 +1,6 @@
 [project]
 name = "reaction-balancer"
-version = "2.0.5"
+version = "2.0.6"
 description = "Balance chemical equations and generate printable forms"
 readme = "README.md"
 license = "MIT"
@@ -60,6 +60,3 @@ include = [
 
 [project.scripts]
 balancer = "balancer.__main__:main"
-
-
-

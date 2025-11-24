@@ -30,7 +30,7 @@ class CuteError(Exception):
         something: str,
         body: str,
         *,
-        begin:str = "😿 Something weng wrong while " ,
+        begin:str = "😿 Something went wrong while " ,
         explanation: Optional[str] = None,
         hint: Optional[str] = None,
     ):
