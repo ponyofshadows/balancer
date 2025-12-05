@@ -8,6 +8,8 @@ from functools import lru_cache
 
 
 # ======== styles ========
+COMPACT_THRESHOLD = 8
+
 BLUE = "00008B"
 RED = "FF0000"
 BLACK = "000000"
@@ -158,7 +160,7 @@ class FormatStage:
         self.focus_row += 1
         return block
 
-    def reactant_blocks(self, reaction_result:ReactionResult)->Iterator[Block]:
+    def reactant_blocks(self, reaction_result:ReactionResult, compact:bool=False)->Iterator[Block]:
         focus_col=1
         yield Block(
                 column=row_header_column,
@@ -182,7 +184,10 @@ class FormatStage:
         self.null_start_cols.append(focus_col)
         self.product_columns.append(substance_column(reaction_result.product))
 
-        self.focus_row += 5
+        if compact:
+            self.focus_row += 4
+        else:
+            self.focus_row += 5
 
 
     def product_blocks(self):
@@ -219,13 +224,40 @@ class FormatStage:
 
         datalines = bundle.stream
 
-        def stream():
+        compact = False
+
+        def cached_datalines():
+            nonlocal compact
+            reaction_count = 0
+            dataline_caches = []
+            has_cache_to_use = True
+
             for dataline in datalines:
+                if reaction_count <= COMPACT_THRESHOLD:
+                    if dataline.line_type is LineType.REACTION:
+                        reaction_count += 1
+                    else:
+                        reaction_count += 0.2
+                    dataline_caches.append(dataline)
+                else:
+                    if has_cache_to_use:
+                        has_cache_to_use = False
+                        compact = True
+                        yield from dataline_caches
+                    yield dataline
+
+            if has_cache_to_use:
+                if reaction_count > COMPACT_THRESHOLD:
+                    compact = True
+                yield from dataline_caches
+                    
+        def stream():
+            for dataline in cached_datalines():
                 match dataline:
                     case DataLine(LineType.TITLE, title):
                         yield self.title_block(title)
                     case DataLine(LineType.REACTION, reaction_result):
-                        yield from self.reactant_blocks(reaction_result)
+                        yield from self.reactant_blocks(reaction_result, compact)
                     case DataLine(LineType.NORMAL, normal):
                         yield self.normal_block(normal)
             
